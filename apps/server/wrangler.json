@@ -110,7 +110,12 @@
                     "remote": true
                 }
             ],
-            "r2_buckets": []
+            "r2_buckets": [
+                {
+                    "binding": "ATTACHMENTS_BUCKET",
+                    "bucket_name": "luminatick-attachments-staging"
+                }
+            ]
         }
     }
 }
