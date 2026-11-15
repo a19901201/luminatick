@@ -29,6 +29,10 @@ i18n.use(initReactI18next).init({
   returnEmptyString: false,
 });
 
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = i18n.language;
+}
+
 export function persistLanguage(lang: string) {
   try {
     localStorage.setItem(LANG_STORAGE_KEY, lang);
