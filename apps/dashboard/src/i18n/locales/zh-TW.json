@@ -457,10 +457,6 @@
       "notEquals": "不等於",
       "contains": "包含",
       "in": "屬於"
-    },
-    "systemFilters": {
-      "openTickets": "未解決工單",
-      "allTickets": "所有工單"
     }
   },
   "automation": {

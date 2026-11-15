@@ -5,7 +5,6 @@ import { useTickets, useCreateTicket } from '../hooks/useTickets';
 import { useGroups, useAgents } from '../hooks/useGroups';
 import { useFilters } from '../hooks/useFilters';
 import { useSettings } from '../hooks/useSettings';
-import { ALL_TICKETS_FILTER_ID, filterLabel } from '../i18n/filterLabels';
 import { 
   Plus, 
   Filter, 
@@ -40,6 +39,9 @@ const priorityColors = {
   high: 'text-orange-500',
   urgent: 'text-red-500',
 };
+
+/** The seeded "All Tickets" system filter duplicates the built-in list entry. */
+const ALL_TICKETS_FILTER_ID = 'filter_system_all';
 
 export function TicketListPage() {
   const { t } = useTranslation();
@@ -159,7 +161,7 @@ export function TicketListPage() {
               )}
             >
               <Filter className="w-4 h-4" />
-              {filterLabel(filter, t)}
+              {filter.name}
             </button>
           ))
         )}
@@ -171,9 +173,7 @@ export function TicketListPage() {
           <div>
             <h1 className="text-2xl font-bold text-slate-900">{t('tickets.listTitle')}</h1>
             <p className="text-slate-500 text-sm">
-              {activeFilter
-                ? filterLabel(activeFilter, t)
-                : t('tickets.allTickets')}
+              {activeFilter ? activeFilter.name : t('tickets.allTickets')}
             </p>
           </div>
           <button 

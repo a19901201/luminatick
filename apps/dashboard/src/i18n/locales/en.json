@@ -457,10 +457,6 @@
       "notEquals": "Does Not Equal",
       "contains": "Contains",
       "in": "In"
-    },
-    "systemFilters": {
-      "openTickets": "Open Tickets",
-      "allTickets": "All Tickets"
     }
   },
   "automation": {
