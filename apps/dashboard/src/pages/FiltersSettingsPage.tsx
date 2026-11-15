@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useFilters, useCreateFilter, useUpdateFilter, useDeleteFilter } from '../hooks/useFilters';
 import { Plus, Edit2, Trash2, X } from 'lucide-react';
 import { TicketFilter, FilterCondition } from '@luminatick/shared';
+import { filterLabel } from '../i18n/filterLabels';
 
 const FIELDS = [
   { value: 'status', labelKey: 'filters.fields.status' },
@@ -145,7 +146,7 @@ export function FiltersSettingsPage() {
               filters?.map((filter) => (
                 <tr key={filter.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4">
-                    <div className="font-medium text-slate-900">{filter.name}</div>
+                    <div className="font-medium text-slate-900">{filterLabel(filter, t)}</div>
                   </td>
                   <td className="px-6 py-4">
                     {filter.is_system ? (

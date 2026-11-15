@@ -5,6 +5,7 @@ import { useTickets, useCreateTicket } from '../hooks/useTickets';
 import { useGroups, useAgents } from '../hooks/useGroups';
 import { useFilters } from '../hooks/useFilters';
 import { useSettings } from '../hooks/useSettings';
+import { ALL_TICKETS_FILTER_ID, filterLabel } from '../i18n/filterLabels';
 import { 
   Plus, 
   Filter, 
@@ -77,6 +78,10 @@ export function TicketListPage() {
 
   const { data: filters, isLoading: isLoadingFilters } = useFilters();
   
+  const activeFilter = filters?.find(f => f.id === activeFilterId);
+  // The built-in "All Tickets" entry already covers filter_system_all, so hide the duplicate.
+  const visibleFilters = filters?.filter(f => f.id !== ALL_TICKETS_FILTER_ID);
+
   const { data: paginatedData, isLoading: isLoadingTickets } = useTickets({
     page: page.toString(),
     ...(activeFilterId ? { filter_id: activeFilterId } : {}),
@@ -142,7 +147,7 @@ export function TicketListPage() {
         {isLoadingFilters ? (
           <div className="px-3 py-2 text-sm text-slate-500">{t('tickets.loadingFilters')}</div>
         ) : (
-          filters?.map(filter => (
+          visibleFilters?.map(filter => (
             <button
               key={filter.id}
               onClick={() => handleFilterClick(filter.id)}
@@ -154,7 +159,7 @@ export function TicketListPage() {
               )}
             >
               <Filter className="w-4 h-4" />
-              {filter.name}
+              {filterLabel(filter, t)}
             </button>
           ))
         )}
@@ -166,8 +171,8 @@ export function TicketListPage() {
           <div>
             <h1 className="text-2xl font-bold text-slate-900">{t('tickets.listTitle')}</h1>
             <p className="text-slate-500 text-sm">
-              {activeFilterId 
-                ? filters?.find(f => f.id === activeFilterId)?.name 
+              {activeFilter
+                ? filterLabel(activeFilter, t)
                 : t('tickets.allTickets')}
             </p>
           </div>
