@@ -1,57 +1,106 @@
 {
-        "name": "luminatick-server",
-        "main": "src/index.ts",
-        "compatibility_date": "2024-04-01",
-        "d1_databases": [
-                {
-                        "binding": "DB",
-                        "database_name": "luminatick-db",
-                        "database_id": "597c6389-7387-4bc6-95aa-6e65fad55097",
-                        "migrations_dir": "migrations"
-                }
-        ],
-        "r2_buckets": [
-                {
-                        "binding": "ATTACHMENTS_BUCKET",
-                        "bucket_name": "luminatick-attachments"
-                }
-        ],
-        "vectorize": [
-                {
-                        "binding": "VECTOR_INDEX",
-                        "index_name": "luminatick-index",
-                        "remote": true
-                }
-        ],
-        "durable_objects": {
-                "bindings": [
-                        {
-                                "name": "NOTIFICATION_DO",
-                                "class_name": "NotificationDO"
-                        }
-                ]
-        },
-        "migrations": [
-                {
-                        "tag": "v1",
-                        "new_sqlite_classes": [
-                                "NotificationDO"
-                        ]
-                }
-        ],
-        "ai": {
-                "binding": "AI",
-                "remote": true
-        },
-        
-  "workflows": [
-    {
-      "name": "vectorize-workflow",
-      "binding": "VECTORIZE_WORKFLOW",
-      "class_name": "VectorizeWorkflow"
-    }
-  ],
-  "observability": {
-                "enabled": true
-        }
+    "name":  "luminatick-server",
+    "main":  "src/index.ts",
+    "compatibility_date":  "2024-04-01",
+    "d1_databases":  [
+                         {
+                             "binding":  "DB",
+                             "database_name":  "luminatick-db",
+                             "database_id":  "597c6389-7387-4bc6-95aa-6e65fad55097",
+                             "migrations_dir":  "migrations"
+                         }
+                     ],
+    "r2_buckets":  [
+                       {
+                           "binding":  "ATTACHMENTS_BUCKET",
+                           "bucket_name":  "luminatick-attachments"
+                       }
+                   ],
+    "vectorize":  [
+                      {
+                          "binding":  "VECTOR_INDEX",
+                          "index_name":  "luminatick-index",
+                          "remote":  true
+                      }
+                  ],
+    "durable_objects":  {
+                            "bindings":  [
+                                             {
+                                                 "name":  "NOTIFICATION_DO",
+                                                 "class_name":  "NotificationDO"
+                                             }
+                                         ]
+                        },
+    "migrations":  [
+                       {
+                           "tag":  "v1",
+                           "new_sqlite_classes":  [
+                                                      "NotificationDO"
+                                                  ]
+                       }
+                   ],
+    "ai":  {
+               "binding":  "AI",
+               "remote":  true
+           },
+    "workflows":  [
+                      {
+                          "name":  "vectorize-workflow",
+                          "binding":  "VECTORIZE_WORKFLOW",
+                          "class_name":  "VectorizeWorkflow"
+                      }
+                  ],
+    "observability":  {
+                          "enabled":  true
+                      },
+    "env":  {
+                "staging":  {
+                                "name":  "luminatick-server-staging",
+                                "main":  "src/index.ts",
+                                "compatibility_date":  "2024-04-01",
+                                "d1_databases":  [
+                                                     {
+                                                         "binding":  "DB",
+                                                         "database_name":  "luminatick-db-staging",
+                                                         "database_id":  "85ef42db-747b-47dc-a079-bc8fa9b4f24b",
+                                                         "migrations_dir":  "migrations"
+                                                     }
+                                                 ],
+                                "durable_objects":  {
+                                                        "bindings":  [
+                                                                         {
+                                                                             "name":  "NOTIFICATION_DO",
+                                                                             "class_name":  "NotificationDO"
+                                                                         }
+                                                                     ]
+                                                    },
+                                "migrations":  [
+                                                   {
+                                                       "tag":  "v1",
+                                                       "new_sqlite_classes":  [
+                                                                                  "NotificationDO"
+                                                                              ]
+                                                   }
+                                               ],
+                                "workflows":  [
+                                                  {
+                                                      "name":  "vectorize-workflow-staging",
+                                                      "binding":  "VECTORIZE_WORKFLOW",
+                                                      "class_name":  "VectorizeWorkflow"
+                                                  }
+                                              ],
+                                "ai":  {
+                                           "binding":  "AI",
+                                           "remote":  true
+                                       },
+                                "vars":  {
+                                             "ENVIRONMENT":  "staging",
+                                             "RESEND_FROM_EMAIL":  "onboarding@resend.dev",
+                                             "RESEND_API_KEY":  "staging-not-configured"
+                                         },
+                                "observability":  {
+                                                      "enabled":  true
+                                                  }
+                            }
+            }
 }

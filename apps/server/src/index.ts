@@ -73,6 +73,22 @@ app.use('/api/*', cors({
   credentials: true,
 }));
 
+// Root info (helps identify the environment when visiting the worker URL directly)
+app.get('/', (c) => {
+  return c.json({
+    service: 'luminatick-server',
+    environment: c.env.ENVIRONMENT || 'production',
+    status: 'ok',
+    endpoints: {
+      health: '/health',
+      api: '/api',
+      dashboardAuth: '/api/auth',
+      customerPortal: '/api/v1/customer',
+      widget: '/api/v1/widget',
+    },
+  });
+});
+
 // Health check
 app.get('/health', (c) => c.text('OK'));
 
