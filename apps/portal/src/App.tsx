@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from './store/authStore';
@@ -24,6 +24,11 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function LegacyMagicLinkRedirect() {
+  const location = useLocation();
+  return <Navigate to={`/verify${location.search}`} replace />;
+}
+
 export default function App() {
   const { login, logout, setLoading } = useAuthStore();
 
@@ -45,6 +50,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/verify" element={<VerifyPage />} />
+        <Route path="/auth/verify" element={<LegacyMagicLinkRedirect />} />
         
         <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route index element={<Navigate to="/tickets" replace />} />
